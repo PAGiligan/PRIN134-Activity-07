@@ -1,65 +1,82 @@
-body {
-    font-family: Arial, sans-serif; 
-    margin: 20px; 
-    background-color: #f4f4f4;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
 
 .game-container {
-    background-color: #fff; 
-    padding: 20px; 
-    border-radius: 8px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-h1  {
-    color: #333; 
-    text-align: center; 
-}
-
-h2 {
-    color: #ad1717; 
+h1 {
     text-align: center;
-}
-
-#controls {
-    color: #208d4ad5;
-    text-align: left;
+    color: #007bff;
+    margin-bottom: 20px;
 }
 
 .section {
     margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
 }
 
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    color: #007bff;
+}
 
-input[type=text] {
-    padding: 8px;
-    margin-right: 10px;
+input[type="text"] {
+    width: calc(50% - 15px);
+    padding: 10px;
+    margin: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus {
+    border: 1px solid #007bff;
 }
 
 button {
-    padding: 11px 18px;
-    background-color: #007bff; 
+    background-color: #007bff;
     color: white;
     border: none;
+    padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3;
 }
-
 
 .player-list {
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid #eee;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background-color: #e9f5ff;
+}
+
+#results {
+    margin-top: 20px;
+    padding: 10px;
+    background: #e0e7ff;
+    border-left: 4px solid #007bff;
     border-radius: 4px;
 }
