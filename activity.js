@@ -14,46 +14,39 @@ class Player {
     }
 }
 
-let players = [
-    new Player("Sarah", "Warriors"),
-    new Player("Lisa", "Globethrotters"),
-    new Player("Mike", "Black Tigers"),
-    new Player("Tom", "White Nuggets"),
-    new Player("Axel", "Green Farmers"),
-    new Player("Irving", "Red Dragons"),
-    new Player("Idrisa", "Bucks")
-];
+let players = [];
 
 function displayRankings(players) {
     players.sort((a, b) => b.score - a.score);
-    console.log("\uD83C\uDFC6 Rankings after this round:");
+    let resultArea = document.getElementById("results");
+    resultArea.innerHTML = "<h2>🏆 Rankings after this round:</h2>";
     players.forEach((player, index) => {
-        console.log(`${index + 1}. ${player.name} - ${player.score} points`);
+        resultArea.innerHTML += `${index + 1}️⃣. ${player.name} - ${player.score} points<br>`;
     });
 }
 
 function tiebreaker(players) {
     let tiedPlayers = players.filter(p => p.score === players[0].score);
     while (tiedPlayers.length > 1) {
-        console.log("\uD83D\uDD25 Tiebreaker needed between:", tiedPlayers.map(p => p.name).join(", "));
+        let resultArea = document.getElementById("results");
+        resultArea.innerHTML += `<h3>🔥 Tiebreaker needed between: ${tiedPlayers.map(p => p.name).join(", ")}</h3>`;
         tiedPlayers.forEach(player => player.score = 0);
 
-        console.log("\uD83C\uDFC0 Round 2 Begins!");
         tiedPlayers.forEach(player => {
             player.shoot(5);
-            console.log(`${player.name} scored ${player.score} successful shots.`);
+            resultArea.innerHTML += `${player.name} scored ${player.score} successful shots.🎯<br>`;
         });
         tiedPlayers.sort((a, b) => b.score - a.score);
         tiedPlayers = tiedPlayers.filter(p => p.score === tiedPlayers[0].score);
     }
 
-    console.log(`\uD83C\uDFC6 The Champion is ${tiedPlayers[0].name} with ${tiedPlayers[0].score} points!`);
+    const champion = tiedPlayers[0];
+    let resultArea = document.getElementById("results");
+    resultArea.innerHTML += `<h2>🥇 The Champion is ${champion.name} with ${champion.score} points!</h2>`;
 }
 
 function startGame() {
-    console.log("\uD83C\uDFC0 Starting the Basketball Shooting Game!\n");
     players.forEach(player => player.shoot(5));
-
     displayRankings(players);
 
     let highestScore = players[0].score;
@@ -62,8 +55,29 @@ function startGame() {
     if (tiedPlayers.length > 1) {
         tiebreaker(tiedPlayers);
     } else {
-        console.log(`\uD83C\uDFC6 The Champion is ${tiedPlayers[0].name} with ${tiedPlayers[0].score} points!`);
+        let resultArea = document.getElementById("results");
+        resultArea.innerHTML += `<h2>🏆 The Champion is ${tiedPlayers[0].name} with ${tiedPlayers[0].score} points!</h2>`;
     }
 }
 
-startGame();
+document.getElementById("addPlayerBtn").addEventListener("click", function() {
+    const playerName = document.getElementById("playerName").value;
+    const playerTeam = document.getElementById("playerTeam").value;
+    if (playerName && playerTeam) {
+        players.push(new Player(playerName, playerTeam));
+        document.getElementById("playerList").innerHTML += `<div>👤 ${playerName} (${playerTeam})</div>`;
+        document.getElementById("playerName").value = "";
+        document.getElementById("playerTeam").value = "";
+    } else {
+        alert("⚠️ Please enter both name and team.");
+    }
+});
+
+document.getElementById("playBtn").addEventListener("click", startGame);
+
+document.getElementById("resetBtn").addEventListener("click", function() {
+    players = [];
+    document.getElementById("playerList").innerHTML = "";
+    document.getElementById("results").innerHTML = "";
+    alert("🔄 Game has been reset. You can now add players again.");
+});
